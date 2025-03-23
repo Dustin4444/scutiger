@@ -24,6 +24,49 @@ git-lfs-transfer::
   This utility is intended to be invoked over SSH to transfer data from one repository to another.
   https://github.com/git-lfs/git-lfs/blob/main/docs/proposals/ssh_adapter.md[The Git LFS documentation outlines the protocol.]
 
+== Command-Line Tests for git-lfs-transfer
+
+To verify the upload and download functionality of `git-lfs-transfer`, you can perform the following command-line tests:
+
+=== Upload Test
+
+1. Configure the LFS URL in the `.lfsconfig` file:
+
+[source,shell]
+----
+$ git config -f .lfsconfig lfs.url ssh://mslinn@gojira/mnt/_/work/git/eval_bare_repo
+----
+
+2. Create a test file to upload:
+
+[source,shell]
+----
+$ echo "Test file content" > testfile.txt
+----
+
+3. Upload the test file via SSH:
+
+[source,shell]
+----
+$ git lfs push origin master
+----
+
+=== Download Test
+
+1. Configure the LFS URL in the `.lfsconfig` file (if not already configured):
+
+[source,shell]
+----
+$ git config -f .lfsconfig lfs.url ssh://mslinn@gojira/mnt/_/work/git/eval_bare_repo
+----
+
+2. Download the test file via SSH:
+
+[source,shell]
+----
+$ git lfs pull origin master
+----
+
 == Former Binaries
 
 This package used to include `git test-merge`, but no longer does, because Git includes `git merge-tree` instead.
